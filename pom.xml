@@ -11,7 +11,7 @@
 	<groupId>com.tomoponi</groupId>
 	<artifactId>tomoponi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>tomoponi</name>
+	<name>Tomoponi</name>
 	<description>Capstone project for Per Scholas - TEK Systems Java Seattle cohort </description>
 	<properties>
 		<java.version>11</java.version>
