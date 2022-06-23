@@ -27,8 +27,8 @@ public class User {
     Set<Pet> pets = new LinkedHashSet<>();
 
     // each user has a personal bag/inventory only they can see and access
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "BAG_ID")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
     Bag bag;
 
 }

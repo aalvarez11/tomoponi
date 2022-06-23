@@ -18,8 +18,9 @@ public class Bag {
     @Column(name = "BAG_ID")
     int bagId;
 
-    @OneToOne(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
-    @PrimaryKeyJoinColumn(name = "BAG_ID", referencedColumnName = "ID")
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "USER_ID")
     User user;
     int coins;
 
