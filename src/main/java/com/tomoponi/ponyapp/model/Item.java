@@ -15,7 +15,7 @@ import javax.persistence.*;
 public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    int id;
     String name;
     String description;
     String image;
