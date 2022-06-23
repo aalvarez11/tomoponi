@@ -16,13 +16,10 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Bag {
     @Id
+    @NonNull
     @Column(name = "BAG_ID")
     int bagId;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "USER_ID")
-    User user;
     @NonNull
     int coins;
 
@@ -42,11 +39,6 @@ public class Bag {
     @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Toy> toys = new ArrayList<>();
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    @OneToOne(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
+    private User user;
 }

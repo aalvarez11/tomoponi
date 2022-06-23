@@ -48,12 +48,14 @@ public class UserService {
         if (userRepository.existsById(u.getId())) {
             // user is in the database, so just update their info
             userRepository.save(u);
+            log.warn("user exists" + u.toString());
         } else {
             // user is not in the database, save the user and their new bag
             userRepository.save(u);
-            Bag userBag = u.getBag();
-            userBag.setBagId(u.getId());
-            bagRepository.save(userBag);
+            log.warn("user id is now: " + u.getId());
+            u.setBag(new Bag(u.getId(), 0));
+            userRepository.save(u);
+            log.warn("user doesn't exist" + u.toString());
         }
     }
 
