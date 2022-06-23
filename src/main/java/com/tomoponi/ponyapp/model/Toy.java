@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Setter
@@ -17,6 +16,10 @@ import javax.persistence.Entity;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Toy extends Item {
     int joyAmount;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "bag_bag_id")
+    private Bag bag;
 
     public Toy(String name, String description, String image, int buyPrice, int sellPrice, int joyAmount) {
         super(name, description, image, buyPrice, sellPrice);

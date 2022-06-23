@@ -3,10 +3,7 @@ package com.tomoponi.ponyapp.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.DiscriminatorValue;
+import javax.persistence.*;
 
 @Entity
 @Setter
@@ -18,6 +15,10 @@ public class Egg extends Item {
     int hatchTime;
     @Enumerated(value = EnumType.STRING)
     ElementType element;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "bag_bag_id")
+    private Bag bag;
 
     public Egg(String name, String description, String image, int buyPrice, int sellPrice, int hatchTime, ElementType element) {
         super(name, description, image, buyPrice, sellPrice);
