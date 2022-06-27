@@ -4,8 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Setter
@@ -19,26 +18,27 @@ public class Bag {
     @NonNull
     @Column(name = "BAG_ID")
     int bagId;
-
     @NonNull
-    int coins;
-
-    // each bag can hold multiple eggs
-    @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Egg> eggs = new ArrayList<>();
-
-    // each bag can hold multiple food items
-    @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Food> foods = new ArrayList<>();
-
-    // each bag can hold multiple medicines
-    @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Medicine> medicines = new ArrayList<>();
-
-    // each bag can hold multiple toys
-    @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Toy> toys = new ArrayList<>();
+    int qty;
 
     @OneToOne(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
     private User user;
+
+    // many bags can have the same kind of item
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bag bag = (Bag) o;
+        return bagId == bag.bagId && Objects.equals(user, bag.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bagId, user);
+    }
 }
