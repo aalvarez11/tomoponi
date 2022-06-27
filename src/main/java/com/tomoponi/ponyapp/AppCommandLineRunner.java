@@ -32,9 +32,13 @@ public class AppCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        // create some sample users in the database
         userService.saveOrUpdate(new User("xXdragonXx", "wer@psmail.com", PASSWORD, 0));
         userService.saveOrUpdate(new User("Oprah_Rulez", "oown@psmail.com", PASSWORD, 100));
         userService.saveOrUpdate(new User("020nion","0nion@psmail.com", PASSWORD, 0));
         userService.saveOrUpdate(new User("b3n4css", "xosn@psmail.com", PASSWORD, 200));
+
+        // create some sample items in the database
+
     }
 }
