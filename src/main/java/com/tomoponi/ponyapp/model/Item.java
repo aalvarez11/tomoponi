@@ -20,15 +20,10 @@ public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    @NonNull
     String name;
-    @NonNull
     String description;
-    @NonNull
     String image;
-    @NonNull
     int buyPrice;
-    @NonNull
     int sellPrice;
 
     @Override
