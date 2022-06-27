@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Setter
@@ -15,8 +16,17 @@ import javax.persistence.*;
 public class Toy extends Item {
     int joyAmount;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "bag_bag_id")
-    private Bag bag;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Toy toy = (Toy) o;
+        return joyAmount == toy.joyAmount;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), joyAmount);
+    }
 }
