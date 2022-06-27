@@ -18,11 +18,6 @@ public class Food extends Item {
     @JoinColumn(name = "bag_bag_id")
     private Bag bag;
 
-    public Food(String name, String description, String image, int buyPrice, int sellPrice, int fillAmount) {
-        super(name, description, image, buyPrice, sellPrice);
-        this.fillAmount = fillAmount;
-    }
-
     @Override
     public String toString() {
         return "Food{" +

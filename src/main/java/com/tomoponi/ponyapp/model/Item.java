@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -16,29 +19,14 @@ public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @NonNull
     String name;
+    @NonNull
     String description;
+    @NonNull
     String image;
+    @NonNull
     int buyPrice;
+    @NonNull
     int sellPrice;
-
-    protected Item(String name, String description, String image, int buyPrice, int sellPrice) {
-        this.name = name;
-        this.description = description;
-        this.image = image;
-        this.buyPrice = buyPrice;
-        this.sellPrice = sellPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
-                ", buyPrice=" + buyPrice +
-                ", sellPrice=" + sellPrice +
-                '}';
-    }
 }
