@@ -9,12 +9,17 @@ import java.util.Objects;
 @Entity
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
-@DiscriminatorValue(value = "TOY")
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Toy extends Item {
     int joyAmount;
+
+    public Toy(String name, String description, String image, int buyPrice, int sellPrice, int joyAmount) {
+        super(name, description, image, buyPrice, sellPrice);
+        this.joyAmount = joyAmount;
+    }
 
     @Override
     public boolean equals(Object o) {
