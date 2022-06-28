@@ -9,14 +9,20 @@ import java.util.Objects;
 @Entity
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
-@DiscriminatorValue(value = "EGG")
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Egg extends Item {
     int hatchTime;
     @Enumerated(value = EnumType.STRING)
     ElementType element;
+
+    public Egg(String name, String description, String image, int buyPrice, int sellPrice, int hatchTime, ElementType element) {
+        super(name, description, image, buyPrice, sellPrice);
+        this.hatchTime = hatchTime;
+        this.element = element;
+    }
 
     @Override
     public boolean equals(Object o) {
