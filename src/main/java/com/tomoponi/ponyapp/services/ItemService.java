@@ -44,22 +44,22 @@ public class ItemService {
 
     // methods for saving or updating items
     public void saveOrUpdateEgg(Egg e) {
-        log.info(e.toString());
         eggRepository.save(e);
+        log.info(e.toString());
     }
 
     public void saveOrUpdateFood(Food f) {
-        log.info(f.toString());
         foodRepository.save(f);
+        log.info(f.toString());
     }
 
     public void saveOrUpdateMedicine(Medicine m) {
-        log.info(m.toString());
         medicineRepository.save(m);
+        log.info(m.toString());
     }
 
-    public void saveOrupdateToy(Toy t) {
-        log.info(t.toString());
+    public void saveOrUpdateToy(Toy t) {
         toyRepository.save(t);
+        log.info(t.toString());
     }
 }
