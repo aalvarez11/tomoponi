@@ -55,7 +55,7 @@ public class UserService {
             log.warn("user id is now: " + u.getId());
             u.setBag(new Bag(u.getId(), 0));
             userRepository.save(u);
-            log.warn("user doesn't exist" + u.toString());
+            log.warn("user doesn't exist " + u.toString());
         }
     }
 
