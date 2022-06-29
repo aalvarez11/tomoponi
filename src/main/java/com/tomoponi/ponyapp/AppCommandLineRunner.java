@@ -144,5 +144,10 @@ public class AppCommandLineRunner implements CommandLineRunner {
                 150,
                 50,
                 25));
+
+        // giving some items to users
+        userService.addItem(1, itemService.findByItemName("Ball"));
+        userService.addMultipleOfItem(2, itemService.findByItemName("Potion"), 5);
+
     }
 }
