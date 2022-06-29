@@ -1,6 +1,7 @@
 package com.tomoponi.ponyapp.services;
 
 import com.tomoponi.ponyapp.model.Bag;
+import com.tomoponi.ponyapp.model.Item;
 import com.tomoponi.ponyapp.model.User;
 import com.tomoponi.ponyapp.repository.BagRepository;
 import com.tomoponi.ponyapp.repository.UserRepository;
@@ -62,5 +63,19 @@ public class UserService {
     // delete a user from the database
     public void deleteUser(User u) {
         userRepository.delete(u);
+    }
+
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public void addItem(int userId, Item item) throws NoSuchElementException {
+        User u = userRepository.findById(userId).orElseThrow();
+        u.addItem(item);
+        userRepository.save(u);
+    }
+
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public void addMultipleOfItem(int userId, Item item, int qty) throws NoSuchElementException {
+        User u = userRepository.findById(userId).orElseThrow();
+        u.addMultipleOfItem(item, qty);
+        userRepository.save(u);
     }
 }
