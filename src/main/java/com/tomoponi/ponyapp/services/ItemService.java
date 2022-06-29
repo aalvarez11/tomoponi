@@ -42,6 +42,16 @@ public class ItemService {
         return allItems;
     }
 
+//    @Transactional(rollbackOn = {NoSuchElementException.class})
+//    public Item findItemById(int id) throws NoSuchElementException {
+//        List<Item> allItems = findAll();
+//        if (allItems.contains()) {
+//
+//        } else {
+//
+//        }
+//    }
+
     // methods for saving or updating items
     public void saveOrUpdateEgg(Egg e) {
         eggRepository.save(e);

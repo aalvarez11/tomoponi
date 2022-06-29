@@ -144,5 +144,7 @@ public class AppCommandLineRunner implements CommandLineRunner {
                 150,
                 50,
                 25));
+
+//        userService.addItem(1, );
     }
 }
