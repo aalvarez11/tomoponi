@@ -28,12 +28,6 @@ public class User {
     @NonNull
     int coins;
 
-    // each user has a personal bag/inventory only they can see and access
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "bag_id")
-    @ToString.Exclude
-    private Bag bag;
-
     // each user can have multiple pets to care for
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

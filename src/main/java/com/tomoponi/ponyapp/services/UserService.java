@@ -1,9 +1,7 @@
 package com.tomoponi.ponyapp.services;
 
-import com.tomoponi.ponyapp.model.Bag;
 import com.tomoponi.ponyapp.model.Item;
 import com.tomoponi.ponyapp.model.User;
-import com.tomoponi.ponyapp.repository.BagRepository;
 import com.tomoponi.ponyapp.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -22,12 +20,10 @@ import java.util.NoSuchElementException;
 @Transactional(rollbackOn = {DataAccessException.class})
 public class UserService {
     final UserRepository userRepository;
-    final BagRepository bagRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, BagRepository bagRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.bagRepository = bagRepository;
     }
 
     // get all users in the database
@@ -53,10 +49,7 @@ public class UserService {
         } else {
             // user is not in the database, save the user and their new bag
             userRepository.save(u);
-            log.warn("user id is now: " + u.getId());
-            u.setBag(new Bag(u.getId(), 0));
-            userRepository.save(u);
-            log.warn("user doesn't exist " + u.toString());
+            log.warn("user didn't exist " + u.toString());
         }
     }
 
