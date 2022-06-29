@@ -4,9 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Setter
@@ -41,6 +39,10 @@ public class User {
     @ToString.Exclude
     Set<Pet> pets = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<UserItems> userItemList = new ArrayList<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,5 +54,18 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(username, email, password);
+    }
+
+    //helper methods
+    public void addPet(Pet p) {
+        pets.add(p);
+    }
+
+    public void addItem(Item i) {
+        userItemList.add(new UserItems(this, i));
+    }
+
+    public void addMultipleOfItem(Item i, int quantity) {
+        userItemList.add(new UserItems(this, i, quantity));
     }
 }
