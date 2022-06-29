@@ -20,13 +20,15 @@ import java.util.NoSuchElementException;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Transactional(rollbackOn = {DataAccessException.class})
 public class ItemService {
+    final ItemRepository itemRepository;
     final EggRepository eggRepository;
     final FoodRepository foodRepository;
     final MedicineRepository medicineRepository;
     final ToyRepository toyRepository;
 
     @Autowired
-    public ItemService(EggRepository eggRepository, FoodRepository foodRepository, MedicineRepository medicineRepository, ToyRepository toyRepository) {
+    public ItemService(ItemRepository itemRepository, EggRepository eggRepository, FoodRepository foodRepository, MedicineRepository medicineRepository, ToyRepository toyRepository) {
+        this.itemRepository = itemRepository;
         this.eggRepository = eggRepository;
         this.foodRepository = foodRepository;
         this.medicineRepository = medicineRepository;
@@ -35,11 +37,12 @@ public class ItemService {
 
     // get all items in the database
     public List<Item> findAll() {
-        List<Item> allItems = eggRepository.findAll();
-        allItems.addAll(foodRepository.findAll());
-        allItems.addAll(medicineRepository.findAll());
-        allItems.addAll(toyRepository.findAll());
-        return allItems;
+        return itemRepository.findAll();
+    }
+
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public Item findByItemName(String name) throws NoSuchElementException {
+        return itemRepository.findByNameIgnoreCase(name).orElseThrow();
     }
 
     // methods for saving or updating items
