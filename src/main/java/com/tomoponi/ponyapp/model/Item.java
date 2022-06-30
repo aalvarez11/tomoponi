@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -30,6 +32,10 @@ public abstract class Item {
     int buyPrice;
     @NonNull
     int sellPrice;
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<UserItems> itemUserList = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

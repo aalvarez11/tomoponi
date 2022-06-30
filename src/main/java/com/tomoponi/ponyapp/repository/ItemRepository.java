@@ -1,12 +1,12 @@
 package com.tomoponi.ponyapp.repository;
 
 import com.tomoponi.ponyapp.model.Item;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@NoRepositoryBean
+@Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
-    Optional<Item> findByName(String name);
+    Optional<Item> findByNameIgnoreCase(String name);
 }
