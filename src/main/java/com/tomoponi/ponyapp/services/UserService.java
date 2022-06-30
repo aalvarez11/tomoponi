@@ -1,7 +1,9 @@
 package com.tomoponi.ponyapp.services;
 
 import com.tomoponi.ponyapp.model.Item;
+import com.tomoponi.ponyapp.model.Pet;
 import com.tomoponi.ponyapp.model.User;
+import com.tomoponi.ponyapp.repository.PetRepository;
 import com.tomoponi.ponyapp.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -31,6 +33,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    // get a user by their id
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public User findById(int userId) throws NoSuchElementException {
+        return userRepository.findById(userId).orElseThrow();
+    }
+
     // get a user by their username
     @Transactional(rollbackOn = {NoSuchElementException.class})
     public User findByUsername(String username) throws NoSuchElementException {
@@ -58,6 +66,7 @@ public class UserService {
         userRepository.delete(u);
     }
 
+    // adding an item with 1 of said item
     @Transactional(rollbackOn = {NoSuchElementException.class})
     public void addItem(int userId, Item item) throws NoSuchElementException {
         User u = userRepository.findById(userId).orElseThrow();
@@ -65,10 +74,20 @@ public class UserService {
         userRepository.save(u);
     }
 
+    // adding an item with more than 1 of said item
     @Transactional(rollbackOn = {NoSuchElementException.class})
     public void addMultipleOfItem(int userId, Item item, int qty) throws NoSuchElementException {
         User u = userRepository.findById(userId).orElseThrow();
         u.addMultipleOfItem(item, qty);
+        userRepository.save(u);
+    }
+
+    // add a pet to a user
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public void addPet(int userId, Pet pet) throws NoSuchElementException {
+        User u = userRepository.findById(userId).orElseThrow();
+        pet.setUser(u);
+        u.addPet(pet);
         userRepository.save(u);
     }
 }
