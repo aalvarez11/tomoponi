@@ -155,5 +155,13 @@ public class AppCommandLineRunner implements CommandLineRunner {
         userService.addItem(1, itemService.findByItemName("Ball"));
         userService.addMultipleOfItem(2, itemService.findByItemName("Potion"), 5);
 
+        // give a user a pet
+        userService.addPet(1, new Pet("Spike",
+                "/resources/static/assets/pets/spike.gif",
+                1, 100, 100, 100, ElementType.FIRE));
+        userService.addPet(3, new Pet("Silverstream",
+                "/resources/static/assets/pets/silverstream.gif",
+                1, 100, 100, 100, ElementType.WATER));
+
     }
 }
