@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!-- header is replaced with the fragment header here -->
+<!-- head is replaced with the fragment head here -->
 <div th:replace="fragrams/head :: head"/>
 <body>
     <header>
@@ -8,7 +8,24 @@
         <div th:replace="fragrams/nav :: nav"/>
     </header>
 
-
+    <div>
+        <h1>Register a new account</h1>
+        <form action="#" th:action="@{/login}" method="post" th:object="${user}">
+            <div class="mb-3">
+                <label for="inputUsername" class="form-label">Username</label>
+                <input type="text" class="form-control" id="inputUsername" th:field="*{username}">
+            </div>
+            <div class="mb-3">
+                <label for="inputPass" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPass" th:field="*{password}">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 
     <!-- footer is replaced with the fragment footer here -->
     <div th:replace="fragrams/footer :: footer"/>
