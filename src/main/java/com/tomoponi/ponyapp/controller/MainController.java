@@ -24,11 +24,6 @@ public class MainController {
         return "register";
     }
 
-    @PostMapping("/register")
-    public String submitForm(@ModelAttribute("user") User user) {
-        return "register_success";
-    }
-
     @GetMapping("/login")
     public String login() {
         return "login";
