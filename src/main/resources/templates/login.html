@@ -9,19 +9,19 @@
     </header>
 
     <div>
-        <h1>Register a new account</h1>
-        <form action="#" th:action="@{/login}" method="post" th:object="${user}">
+        <h1>Log In</h1>
+        <div th:if="${param.error}">
+            <p class="text-warning">Invalid username or password</p>
+        </div>
+
+        <form action="#" th:action="@{/login}" method="post">
             <div class="mb-3">
                 <label for="inputUsername" class="form-label">Username</label>
-                <input type="text" class="form-control" id="inputUsername" th:field="*{username}">
+                <input type="text" class="form-control" id="inputUsername">
             </div>
             <div class="mb-3">
                 <label for="inputPass" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPass" th:field="*{password}">
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <input type="password" class="form-control" id="inputPass">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
