@@ -3,34 +3,40 @@
 <!-- head is replaced with the fragment head here -->
 <div th:replace="fragrams/head :: head"/>
 <body>
+    <header>
+        <!-- nav bar fragment is placed here -->
+        <div th:replace="fragrams/nav :: nav"/>
+    </header>
+    <!-- give some info on the error -->
     <div class="row gx-5 justify-content-center">
         <div class="col-lg-10">
             <h1 class="text-white" th:text="${status}"></h1>
             <table class="table table-dark">
                 <thead>
-                <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Path</th>
-                    <th scope="col">Error</th>
-                    <th scope="col">Message</th>
-                    <th scope="col">Exception</th>
-                    <th scope="col">Trace</th>
-                </tr>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Path</th>
+                        <th scope="col">Error</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Exception</th>
+                        <th scope="col">Trace</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row" th:text="${timestamp}"></th>
-                    <td th:text="${path}"></td>
-                    <td th:text="${error}"></td>
-                    <td th:text="${message}"></td>
-                    <td th:text="${exception}"></td>
-                    <td th:text="${trace}"></td>
-                </tr>
-
+                    <tr>
+                        <th scope="row" th:text="${timestamp}"></th>
+                        <td th:text="${path}"></td>
+                        <td th:text="${error}"></td>
+                        <td th:text="${message}"></td>
+                        <td th:text="${exception}"></td>
+                        <td th:text="${trace}"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+
+    <!-- footer is replaced with the fragment footer here -->
+    <div th:replace="fragrams/footer :: footer"/>
 </body>
 </html>
