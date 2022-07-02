@@ -39,6 +39,11 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow();
     }
 
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public User findByEmail(String email) throws NoSuchElementException {
+        return userRepository.findByEmail(email).orElseThrow();
+    }
+
     // get a user by their username
     @Transactional(rollbackOn = {NoSuchElementException.class})
     public User findByUsername(String username) throws NoSuchElementException {
