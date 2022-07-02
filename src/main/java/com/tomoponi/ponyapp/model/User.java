@@ -2,6 +2,7 @@ package com.tomoponi.ponyapp.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.*;
@@ -12,7 +13,6 @@ import java.util.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
     @Id
@@ -24,9 +24,18 @@ public class User {
     @NonNull
     String email;
     @NonNull
+    @Setter(AccessLevel.NONE)
     String password;
     @NonNull
     int coins;
+
+    // password-encrypting constructor
+    public User(@NonNull String username, @NonNull String email, @NonNull String password, @NonNull int coins) {
+        this.username = username;
+        this.email = email;
+        this.password = new BCryptPasswordEncoder().encode(password);
+        this.coins = coins;
+    }
 
     // each user can have multiple pets to care for
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,6 +46,12 @@ public class User {
     @ToString.Exclude
     private List<UserItems> userItemList = new ArrayList<>();
 
+    // encrypting password setter
+    public void setPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
+
+    // hashcode and equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,7 +65,7 @@ public class User {
         return Objects.hash(username, email, password);
     }
 
-    //helper methods
+    // helper methods
     public void addPet(Pet p) {
         pets.add(p);
     }
