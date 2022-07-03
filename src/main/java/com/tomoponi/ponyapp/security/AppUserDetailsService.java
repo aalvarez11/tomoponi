@@ -35,6 +35,7 @@ public class AppUserDetailsService implements UserDetailsService {
         User user = null;
         try {
             user = userService.findByEmail(email);
+            log.info("Attempting to load user: " + user.toString());
         } catch (NoSuchElementException | UsernameNotFoundException e) {
             log.warn("Couldn't find username: " + email);
             e.printStackTrace();

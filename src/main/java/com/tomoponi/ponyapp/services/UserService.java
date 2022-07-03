@@ -41,6 +41,7 @@ public class UserService {
 
     @Transactional(rollbackOn = {NoSuchElementException.class})
     public User findByEmail(String email) throws NoSuchElementException {
+        log.info("email fetched was: " + email);
         return userRepository.findByEmail(email).orElseThrow();
     }
 
@@ -54,16 +55,7 @@ public class UserService {
     @Transactional(rollbackOn = {NoSuchElementException.class})
     public void saveOrUpdate(User u) {
         log.info(u.toString());
-        // check if the user exists in the database
-        if (userRepository.existsById(u.getId())) {
-            // user is in the database, so just update their info
-            userRepository.save(u);
-            log.warn("user exists" + u.toString());
-        } else {
-            // user is not in the database, save the user and their new bag
-            userRepository.save(u);
-            log.warn("user didn't exist " + u.toString());
-        }
+        userRepository.save(u);
     }
 
     // delete a user from the database
