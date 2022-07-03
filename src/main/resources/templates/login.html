@@ -13,8 +13,11 @@
         <div th:if="${param.error}">
             <p class="text-warning">Invalid username or password</p>
         </div>
+        <div  th:if="${param.logout}" >
+            <p class="text-info">You have been logged out.</p>
+        </div>
 
-        <form action="#" th:action="@{/login}" method="post">
+        <form action="#" th:action="@{/login/authenticate}" method="post">
             <div class="mb-3">
                 <label for="inputUsername" class="form-label">Username</label>
                 <input type="text" class="form-control" id="inputUsername">
