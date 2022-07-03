@@ -13,6 +13,7 @@ import java.util.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "user")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
     @Id
@@ -22,6 +23,7 @@ public class User {
     @NonNull
     String username;
     @NonNull
+    @Column(unique = true)
     String email;
     @NonNull
     @Setter(AccessLevel.NONE)
