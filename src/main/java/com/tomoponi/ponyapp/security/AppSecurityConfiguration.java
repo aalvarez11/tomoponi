@@ -58,7 +58,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/login", "/register").permitAll()
                 .and()
-                .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password")
+                .formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password")
                 .loginProcessingUrl("/login/authenticate").defaultSuccessUrl("/")
                 .failureUrl("/login?error=true").permitAll()
                 .and()
