@@ -69,6 +69,7 @@ public class UserService {
         log.info(u.toString());
         userRepository.save(u);
         authGroupRepository.save(new AuthGroup(u.getEmail(), "ROLE_ADMIN"));
+        authGroupRepository.save(new AuthGroup(u.getEmail(), "ROLE_USER"));
     }
 
     // delete a user from the database
