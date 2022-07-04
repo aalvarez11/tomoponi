@@ -62,7 +62,9 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // set authorizations
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/login", "/register").permitAll()
+                .antMatchers("/", "/index", "/login", "/register", "/shop").permitAll()
+                .antMatchers("/mypets").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password")
                 .loginProcessingUrl("/login/authenticate").defaultSuccessUrl("/")
