@@ -56,6 +56,8 @@ The heart of the application. A pet has multiple stats to be tracked by users so
 
 ### <a name="testing"></a> Unit Testing
 
+Tests written for testing CRUD services for Users, Items and Pets
+
 ### <a name="stories"></a> User Stories
 
 As a User, I want to see my pets, so that I can tell if they are hungry or sick. 
