@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,9 +18,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    AppUserDetailsService appUserDetailsService;
+    final AppUserDetailsService appUserDetailsService;
 
     @Autowired
     public AppSecurityConfiguration(AppUserDetailsService appUserDetailsService) {
@@ -34,8 +36,10 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
+        // create a new auth provider & set service to the one created for this app
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(appUserDetailsService);
+        // also set the encoder to be bcrypt as set in the method above
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
@@ -47,6 +51,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+        // set the directories that will be ignored by security
         web.ignoring().antMatchers("/resources/**", "/static/**",
                                     "/css/**", "/js/**", "/img/**",
                                     "/assets/**", "/pets/**", "/types/**");
@@ -54,6 +59,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // set authorizations
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/login", "/register").permitAll()
