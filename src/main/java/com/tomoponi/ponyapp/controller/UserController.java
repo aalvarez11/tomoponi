@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,5 +31,10 @@ public class UserController {
         user.setPassword(encodedPassword);
         userService.saveOrUpdate(user);
         return "register_success";
+    }
+
+    @GetMapping("/view_users")
+    public String viewUsers() {
+        return "view_users";
     }
 }
