@@ -1,8 +1,10 @@
 package com.tomoponi.ponyapp.services;
 
+import com.tomoponi.ponyapp.model.AuthGroup;
 import com.tomoponi.ponyapp.model.Item;
 import com.tomoponi.ponyapp.model.Pet;
 import com.tomoponi.ponyapp.model.User;
+import com.tomoponi.ponyapp.repository.AuthGroupRepository;
 import com.tomoponi.ponyapp.repository.PetRepository;
 import com.tomoponi.ponyapp.repository.UserRepository;
 import lombok.AccessLevel;
@@ -22,10 +24,12 @@ import java.util.NoSuchElementException;
 @Transactional(rollbackOn = {DataAccessException.class})
 public class UserService {
     final UserRepository userRepository;
+    final AuthGroupRepository authGroupRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, AuthGroupRepository authGroupRepository) {
         this.userRepository = userRepository;
+        this.authGroupRepository = authGroupRepository;
     }
 
     // get all users in the database
@@ -56,6 +60,15 @@ public class UserService {
     public void saveOrUpdate(User u) {
         log.info(u.toString());
         userRepository.save(u);
+        authGroupRepository.save(new AuthGroup(u.getEmail(), "ROLE_USER"));
+    }
+
+    // save an admin_role user
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public void saveOrUpdateAdmin(User u) {
+        log.info(u.toString());
+        userRepository.save(u);
+        authGroupRepository.save(new AuthGroup(u.getEmail(), "ROLE_ADMIN"));
     }
 
     // delete a user from the database
