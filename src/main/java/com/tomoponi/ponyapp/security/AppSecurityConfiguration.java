@@ -2,6 +2,7 @@ package com.tomoponi.ponyapp.security;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -63,7 +65,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/login", "/register", "/shop").permitAll()
-                .antMatchers("/mypets").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/pets").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password")
