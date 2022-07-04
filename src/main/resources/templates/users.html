@@ -9,7 +9,25 @@
     </header>
 
     <div class="container text-center">
-        <h3><a></a></h3>
+        <h1>Registered Users</h1>
+    </div>
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <th>User ID</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Coins</th>
+            </thead>
+            <tbody>
+                <tr th:each="user: ${listUsers}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.coins}"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <!-- footer is replaced with the fragment footer here -->
