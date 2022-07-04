@@ -19,7 +19,7 @@ public class PetController {
         this.petService = petService;
     }
 
-    @GetMapping("/viewpets")
+    @GetMapping("/view_pets")
     public String showPets() {
         return "pets";
     }
