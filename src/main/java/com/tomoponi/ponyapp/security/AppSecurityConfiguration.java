@@ -55,8 +55,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // set the directories that will be ignored by security
         web.ignoring().antMatchers("/resources/**", "/static/**",
-                                    "/css/**", "/js/**", "/img/**",
-                                    "/assets/**", "/pets/**", "/types/**");
+                                    "/css/**", "/js/**", "/assets/**");
     }
 
     @Override
@@ -65,8 +64,8 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/login", "/register", "/shop").permitAll()
-                .antMatchers("/pets").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/pets").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/users").hasAnyAuthority("ROLE_ADMIN")
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password")
                 .loginProcessingUrl("/login/authenticate").defaultSuccessUrl("/")
