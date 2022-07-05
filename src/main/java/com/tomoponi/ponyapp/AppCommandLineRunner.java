@@ -151,17 +151,47 @@ public class AppCommandLineRunner implements CommandLineRunner {
                 20,
                 15));
 
-        // giving some items to users
+        // give to each user at least: 1 toy, 1 medicine, 1 food, 1 egg
+        // add toys
         userService.addItem(1, itemService.findByItemName("Ball"));
+        userService.addItem(2, itemService.findByItemName("Piano"));
+        userService.addItem(3, itemService.findByItemName("Paints"));
+        userService.addItem(4, itemService.findByItemName("Book"));
+        // add medicine
+        userService.addMultipleOfItem(1, itemService.findByItemName("Potion"), 5);
         userService.addMultipleOfItem(2, itemService.findByItemName("Potion"), 5);
+        userService.addMultipleOfItem(3, itemService.findByItemName("Potion"), 5);
+        userService.addMultipleOfItem(4, itemService.findByItemName("Potion"), 5);
+        // add food
+        userService.addMultipleOfItem(1, itemService.findByItemName("Apple"), 3);
+        userService.addMultipleOfItem(2, itemService.findByItemName("Apple"), 5);
+        userService.addMultipleOfItem(3, itemService.findByItemName("Cheese Pizza"), 20);
+        userService.addMultipleOfItem(4, itemService.findByItemName("Pancakes"), 20);
+        // add eggs
+        userService.addItem(1, itemService.findByItemName("Fire Egg"));
+        userService.addItem(2, itemService.findByItemName("Thunder Egg"));
+        userService.addItem(3, itemService.findByItemName("Earth Egg"));
+        userService.addItem(4, itemService.findByItemName("Water Egg"));
 
-        // give a user a pet
+        // give at least one pet to all the users
         userService.addPet(1, new Pet("Spike",
                 "/resources/static/assets/pets/spike.gif",
                 1, 100, 100, 100, ElementType.FIRE));
+        userService.addPet(2, new Pet("Celestia",
+                "/resources/static/assets/pets/celestia.gif",
+                1, 100, 100, 100, ElementType.LIGHT));
         userService.addPet(3, new Pet("Silverstream",
                 "/resources/static/assets/pets/silverstream.gif",
                 1, 100, 100, 100, ElementType.WATER));
+        userService.addPet(3, new Pet("Ocellus",
+                "/resources/static/assets/pets/ocellus.gif",
+                1, 100, 100, 100, ElementType.EARTH));
+        userService.addPet(4, new Pet("Twilight",
+                "/resources/static/assets/pets/twilight.gif",
+                1, 100, 100, 100, ElementType.LIGHT));
+        userService.addPet(4, new Pet("Sunset",
+                "/resources/static/assets/pets/sunset.gif",
+                1, 100, 100, 100, ElementType.FIRE));
 
     }
 }
