@@ -11,17 +11,19 @@
     <div class="container">
         <h1>Your Pets</h1>
     </div>
-    <div class="card" style="width: 18rem;">
-        <img src="static/assets/pets/spike.gif" class="card-img-top" alt="..." id="pet-image">
-        <div class="card-body">
-            <h5 class="card-title" id="pet-name">Pet name</h5>
-            <p class="card-text">Level</p>
+    <div th:each="pet: ${listPets}">
+        <div class="card" style="width: 18rem;">
+            <img th:src="${pet.image}" class="card-img-top" alt="your dear pet" id="pet-image">
+            <div class="card-body">
+                <h5 class="card-title" id="pet-name" th:text="${pet.name}">Pet name</h5>
+                <p class="card-text">Level</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Health</li>
+                <li class="list-group-item">Hunger</li>
+                <li class="list-group-item">Happiness</li>
+            </ul>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Health</li>
-            <li class="list-group-item">Hunger</li>
-            <li class="list-group-item">Happiness</li>
-        </ul>
     </div>
 
 
