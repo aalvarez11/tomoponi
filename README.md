@@ -98,6 +98,8 @@ As the Site Owner, I want to view users, so that I may see site growth/usage.
 
 ### <a name="credits"></a> CREDITS
 
+This is a student project, ponies and their images are property of Hasbro Inc. 
+
 Icons used for eggs, from Lugia-sea on Deviantart
 https://www.deviantart.com/lugia-sea/art/Pokemon-Type-Icons-Vector-869706864
 
