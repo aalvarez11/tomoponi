@@ -26,6 +26,11 @@
                             <a class="nav-link" href="/pets/view_pets">My Pets</a>
                         </li>
                     </span>
+                    <span sec:authorize="hasRole('ROLE_USER')">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/items/view_items">My Bag</a>
+                        </li>
+                    </span>
                     <span sec:authorize="hasRole('ROLE_ADMIN')">
                         <li class="nav-item">
                             <a class="nav-link" href="/users/view_users">Users</a>
