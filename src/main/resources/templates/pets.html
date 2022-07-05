@@ -13,7 +13,7 @@
     </div>
     <div class="container d-flex flex-row justify-content-evenly">
             <div th:each="pet: ${listPets}" class="card" style="width: 18rem;">
-                <img th:src="${pet.image}" class="card-img-top" alt="your dear pet" id="pet-image">
+                <img th:src="@{${pet.image}}" class="card-img-top" alt="your dear pet" id="pet-image">
                 <div class="card-body">
                     <h5 class="card-title" id="pet-name" th:text="${pet.name}">Pet name</h5>
                     <p class="card-text">Level <span th:text="${pet.level}"></span></p>
@@ -44,6 +44,7 @@
             </div>
     </div>
 
+    <script src="../js/loadpetimages.js"></script>
     <!-- footer is replaced with the fragment footer here -->
     <div th:replace="fragrams/footer :: footer"/>
 </body>
