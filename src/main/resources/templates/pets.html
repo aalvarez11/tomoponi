@@ -11,21 +11,38 @@
     <div class="container">
         <h1>Your Pets</h1>
     </div>
-    <div th:each="pet: ${listPets}">
-        <div class="card" style="width: 18rem;">
-            <img th:src="${pet.image}" class="card-img-top" alt="your dear pet" id="pet-image">
-            <div class="card-body">
-                <h5 class="card-title" id="pet-name" th:text="${pet.name}">Pet name</h5>
-                <p class="card-text">Level</p>
+    <div class="container d-flex flex-row justify-content-evenly">
+            <div th:each="pet: ${listPets}" class="card" style="width: 18rem;">
+                <img th:src="${pet.image}" class="card-img-top" alt="your dear pet" id="pet-image">
+                <div class="card-body">
+                    <h5 class="card-title" id="pet-name" th:text="${pet.name}">Pet name</h5>
+                    <p class="card-text">Level <span th:text="${pet.level}"></span></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Health
+                        <div class="container">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" th:text="${pet.health}"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">Hunger
+                        <div class="container">
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" th:text="${pet.hunger}"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">Happiness
+                        <div class="container">
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" th:text="${pet.happiness}"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Health</li>
-                <li class="list-group-item">Hunger</li>
-                <li class="list-group-item">Happiness</li>
-            </ul>
-        </div>
     </div>
-
 
     <!-- footer is replaced with the fragment footer here -->
     <div th:replace="fragrams/footer :: footer"/>
