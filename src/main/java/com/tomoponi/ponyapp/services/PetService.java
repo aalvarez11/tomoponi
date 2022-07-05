@@ -28,6 +28,11 @@ public class PetService {
         return petRepository.findAll();
     }
 
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public List<Pet> findPetsByUserId(int userId) {
+        return petRepository.findPetsByUserId(userId);
+    }
+
     // get a pet with a given name
     @Transactional(rollbackOn = {NoSuchElementException.class})
     public Pet findByPetName(String name) throws NoSuchElementException {
