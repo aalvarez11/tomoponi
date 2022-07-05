@@ -1,6 +1,8 @@
 # Tomoponi
 Capstone project for Per Scholas' Seattle Java Full-stack Dev cohort Mar-Jul 2022. The concept of this project lies on the nostalgia for caring for virtual pets back in the early 2000's. Though potentially out of scope for a capstone, this site follows design in a vein most similar to that of Neopets. That is, new accounts get a pet on joining, play minigames to earn coins, buy or find food to give their pets, and can buy plenty of other items to keep their pets happy and healthy. Being a fan of one of the newer My Little Pony series and knowing where to find some nice little sprites, I designed this app as a bit of a pony-virtual-pet site and mixed Tomodachi, the Japanese word for 'Friend(s)' to show the spirit of the show and the app mixing together. 
 
+[Presentation](https://docs.google.com/presentation/d/1KzClLIziuJLoZMwqc04RWcCeeWbFbwqq_sTVPTUmQFs/edit?usp=sharing)
+
 ## Table of Contents
 1. [Technologies Used](#technologies)
 2. [Models](#models)
@@ -53,6 +55,22 @@ The final child of Item is Toy, which is bought by users in the market and raise
 The heart of the application. A pet has multiple stats to be tracked by users so that they may act accordingly. These stats are health, hunger and happiness which deteriorate and must be tended to by players. Pets also have a type which are for future endeavors...
 
 ### <a name="controllers"></a> Controllers
+
+#### MainController
+
+As the name states, this is the main controller for the most basic or general mappings, that is; home, register, login, and the 403 page. 
+
+#### UserController
+
+The controller in charge of actions involving users. Registering a new account and getting the view of users for administrators are in this controller.
+
+#### ItemController
+
+The controller in charge of actions involving items. The request mapping for getting a user's items is in this controller.
+
+#### PetController
+
+The controller in charge of actions involving pets. The request mapping for getting a user's pets is in this controller.
 
 ### <a name="testing"></a> Unit Testing
 
