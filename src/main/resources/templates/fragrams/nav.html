@@ -31,12 +31,16 @@
                             <a class="nav-link" href="/users/view_users">Users</a>
                         </li>
                     </span>
-                    <li class="nav-item">
+                    <span sec:authorize="!isAuthenticated()">
+                        <li class="nav-item">
                         <a class="nav-link text-danger" href="/register">Register</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-info" href="/login">Log In</a>
-                    </li>
+                    </span>
+                    <span sec:authorize="!isAuthenticated()">
+                        <li class="nav-item">
+                            <a class="nav-link text-info" href="/login">Log In</a>
+                        </li>
+                    </span>
                     <span sec:authorize="isAuthenticated()" >
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/logout}">Logout</a>
