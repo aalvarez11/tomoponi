@@ -37,6 +37,11 @@ public class ItemService {
         return itemRepository.findByNameIgnoreCase(name).orElseThrow();
     }
 
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public Item findById(int id) throws NoSuchElementException {
+        return itemRepository.findById(id).orElseThrow();
+    }
+
     // method for creating or updating items
     public void saveOrUpdateItem(Item i) {
         itemRepository.save(i);
