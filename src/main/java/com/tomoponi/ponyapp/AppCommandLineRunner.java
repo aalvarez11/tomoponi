@@ -183,9 +183,9 @@ public class AppCommandLineRunner implements CommandLineRunner {
         userService.addPet(3, new Pet("Silverstream",
                 "/resources/static/assets/pets/silverstream.gif",
                 1, 100, 100, 100, ElementType.WATER));
-        userService.addPet(3, new Pet("Ocellus",
-                "/resources/static/assets/pets/ocellus.gif",
-                1, 100, 100, 100, ElementType.EARTH));
+        userService.addPet(3, new Pet("Chrysalis",
+                "/resources/static/assets/pets/chrysalis.gif",
+                1, 100, 100, 100, ElementType.DARK));
         userService.addPet(4, new Pet("Twilight",
                 "/resources/static/assets/pets/twilight.gif",
                 1, 100, 100, 100, ElementType.LIGHT));
