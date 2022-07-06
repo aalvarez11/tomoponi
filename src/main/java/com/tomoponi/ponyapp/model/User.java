@@ -26,7 +26,6 @@ public class User {
     @Column(unique = true)
     String email;
     @NonNull
-    @Setter(AccessLevel.NONE)
     String password;
     @NonNull
     int coins;
@@ -47,11 +46,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<UserItems> userItemList = new ArrayList<>();
-
-    // encrypting password setter
-    public void setPassword(String password) {
-        this.password = new BCryptPasswordEncoder().encode(password);
-    }
 
     // hashcode and equals
     @Override
