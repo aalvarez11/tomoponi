@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +39,29 @@ public class UserController {
         List<User> userList = userService.findAll();
         model.addAttribute("listUsers", userList);
         return "users";
+    }
+
+    // Update Part 1: fetch the form to update a specified user
+    @GetMapping("/users/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "update_user";
+    }
+
+    // Update Part 2: save the updated information to the user
+    @PostMapping("users/edit/users/update/{id}")
+    public String updateUser(@PathVariable("id") int id, User user, Model model) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPass = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPass);
+        userService.updateUser(user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable("id") int id, Model model) {
+        userService.deleteUser(id);
+        return "redirect:/";
     }
 }

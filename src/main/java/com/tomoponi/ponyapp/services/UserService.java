@@ -63,6 +63,12 @@ public class UserService {
         authGroupRepository.save(new AuthGroup(u.getEmail(), "ROLE_USER"));
     }
 
+    // *only* update a user, no adding roles
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public void updateUser(User u) {
+        userRepository.save(u);
+    }
+
     // save an admin_role user
     @Transactional(rollbackOn = {NoSuchElementException.class})
     public void saveOrUpdateAdmin(User u) {

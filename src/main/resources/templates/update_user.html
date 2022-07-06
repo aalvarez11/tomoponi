@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- head is replaced with the fragment head here -->
+<div th:replace="fragrams/head :: head"/>
+<body>
+    <header>
+        <!-- nav bar fragment is placed here -->
+        <div th:replace="fragrams/nav :: nav"/>
+    </header>
+    <div>
+        <h1>Update User</h1>
+        <form th:action="@{users/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+            <div class="mb-3">
+                <label for="newEmail" class="form-label">Change Email</label>
+                <input type="email" class="form-control" id="newEmail" th:field="*{email}" th:value="${user.email}" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="newUsername" class="form-label">Change Username</label>
+                <input type="text" class="form-control" id="newUsername" th:field="*{username}" th:value="${user.username}">
+            </div>
+            <div class="mb-3">
+                <label for="newPass" class="form-label">Change Password</label>
+                <input type="password" class="form-control" id="newPass" th:field="*{password}" th:value="${user.password}"
+                       required minlength="6" maxlength="24">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+    <!-- footer is replaced with the fragment footer here -->
+    <div th:replace="fragrams/footer :: footer"/>
+</body>
+</html>
