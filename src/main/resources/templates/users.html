@@ -18,6 +18,8 @@
                 <th>Email</th>
                 <th>Username</th>
                 <th>Coins</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 <tr th:each="user: ${listUsers}">
@@ -25,6 +27,8 @@
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.username}"></td>
                     <td th:text="${user.coins}"></td>
+                    <td><a class="btn btn-info" th:href="@{users/edit/{id}(id=${user.id})}" role="button">Edit</a></td>
+                    <td><a class="btn btn-danger" th:href="@{users/delete/{id}(id=${user.id})}" role="button">Delete</a></td>
                 </tr>
             </tbody>
         </table>
