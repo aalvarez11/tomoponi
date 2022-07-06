@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- head is replaced with the fragment head here -->
+<div th:replace="fragrams/head :: head"/>
+<body>
+<header>
+  <!-- nav bar fragment is placed here -->
+  <div th:replace="fragrams/nav :: nav"/>
+</header>
+
+<div class="container text-center mb-3" style="padding-top: 100px;">
+  <h2 class="text-success">You have deleted <span th:text="${user.email}"></span> successfully!</h2>
+  <h4><a href="/users/view_users">Go back to Users</a></h4>
+</div>
+
+<!-- footer is replaced with the fragment footer here -->
+<div th:replace="fragrams/footer :: footer"/>
+</body>
+</html>
