@@ -1,7 +1,16 @@
 # Tomoponi
+[Accompanying Presentation](https://docs.google.com/presentation/d/1KzClLIziuJLoZMwqc04RWcCeeWbFbwqq_sTVPTUmQFs/edit?usp=sharing)
+
 Capstone project for Per Scholas' Seattle Java Full-stack Dev cohort Mar-Jul 2022. The concept of this project lies on the nostalgia for caring for virtual pets back in the early 2000's. Though potentially out of scope for a capstone, this site follows design in a vein most similar to that of Neopets. That is, new accounts get a pet on joining, play minigames to earn coins, buy or find food to give their pets, and can buy plenty of other items to keep their pets happy and healthy. Being a fan of one of the newer My Little Pony series and knowing where to find some nice little sprites, I designed this app as a bit of a pony-virtual-pet site and mixed Tomodachi, the Japanese word for 'Friend(s)' to show the spirit of the show and the app mixing together. 
 
-[Presentation](https://docs.google.com/presentation/d/1KzClLIziuJLoZMwqc04RWcCeeWbFbwqq_sTVPTUmQFs/edit?usp=sharing)
+Below is a list of premade accounts through the CommandLineRunner which you can log in with to view some site functionality.
+
+| email                   | username (not needed for login) | password | Auth Groups |
+|-------------------------|---------------------------------|----------|-------------|
+| fireboy@psmail.com      | xXDragonXx                      | password | User        |
+| own@psmail.com          | Oprah_Rulez                     | password | User        |
+| animal_lover@psmail.com | Flutter                         | password | Admin, User |
+| starscout@psmail.com    | Sunny Bun                       | password | Admin, User |
 
 ## Table of Contents
 1. [Technologies Used](#technologies)
@@ -16,6 +25,7 @@ Capstone project for Per Scholas' Seattle Java Full-stack Dev cohort Mar-Jul 202
 - Spring Boot
 - Spring JPA
 - Spring Security
+- Java Corretto 11
 - Maven
 - Lombok
 - JUnit
@@ -26,9 +36,43 @@ Capstone project for Per Scholas' Seattle Java Full-stack Dev cohort Mar-Jul 202
 
 ### <a name="models"></a> Models
 
+Models require:
+
+- constructors (no args, all args, req args)
+- setters and getters
+- toString()
+- overridden equals() and hash()
+- additional helper methods
+
 #### User
 
-The core model of the application. Users are the accounts of site users, which hold information like their email and password, but also contain site-specific data for coins, a link to what items each individual user has and a list of pets the user has gotten.
+The core model of the application. Users are the accounts of site users, which hold information like their email and password, but also contain site-specific data for coins, a link to what items each individual user has and a list of pets the user has gotten. 
+
+| Field        | Datatype        | Description                              | Attributes                         |
+|--------------|-----------------|------------------------------------------|------------------------------------|
+| id           | int             | a unique identifier                      | PK, autoincrement                  |
+| email        | String          | user's email they registered with        | not null, unique                   |
+| username     | String          | user's display name on the site          | not null                           |
+| password     | String          | user's sign-in password                  | not null                           |
+| coins        | int             | the amount of site's currency a user has | not null                           |
+| pets         | List<Pet>       | user's pets                              | OneToMany (one User has many Pets) |
+| userItemList | List<UserItems> | user's items and each item's quantity    | join table ManyToMany with Items   |
+
+#### Pet
+
+Where users are the heart of the application, pets are the soul. A pet has multiple stats to be tracked by users so that they may act accordingly. These stats are health, hunger and happiness which deteriorate and must be tended to by players. Pets also have a type which are for future endeavors...
+
+| Field     | Datatype           | Description                       | Attributes                               |
+|-----------|--------------------|-----------------------------------|------------------------------------------|
+| id        | int                | a unique identifier               | PK, autoincrement                        |
+| name      | String             | pet's name given by their user    | not null                                 |
+| image     | String             | relative path to the pet's image  | not null                                 |
+| level     | int                | pet's level                       | not null                                 |
+| health    | int                | pet's health                      | not null                                 |
+| hunger    | int                | pet's hunger                      | not null                                 |
+| happiness | int                | pet's happiness                   | not null                                 |
+| element   | ElementType (enum) | a pet's elemental type, for later | not null                                 |
+| user      | User               | user the pet belongs to           | ManyToOne (many Pets belong to one User) |
 
 #### Item
 
@@ -50,9 +94,21 @@ The next child of Item is Medicine, which is bought by users in the market to gi
 
 The final child of Item is Toy, which is bought by users in the market and raises the happiness of a pet when given to them.
 
-#### Pet
-
-The heart of the application. A pet has multiple stats to be tracked by users so that they may act accordingly. These stats are health, hunger and happiness which deteriorate and must be tended to by players. Pets also have a type which are for future endeavors...
+| Field             | Datatype           | Description                          | Attributes                                                                            |
+|-------------------|--------------------|--------------------------------------|---------------------------------------------------------------------------------------|
+| id                | int                | a unique identifier                  | PK, autoincrement                                                                     |
+| name              | String             | item's name                          |                                                                                       |
+| description       | String             | item's description                   |                                                                                       |
+| image             | String             | relative path to the item's image    |                                                                                       |
+| buyPrice          | int                | the item's cost at the market        |                                                                                       |
+| sellPrice         | int                | the item's value when selling back   |                                                                                       |
+| itemUserList      | List<userItems>    | items tied to a User                 | join table ManyToMany with Users                                                      |
+| itemType          | String             | child class the instance belongs to  | join table with discriminator column where all Item children appear in a single table |
+| hatchTime         | int                | how long an egg takes to hatch       | Egg-specific field                                                                    |
+| element           | ElementType (enum) | the egg's elemental type, for later  | Egg-specific field                                                                    |
+| fillAmount        | int                | how much hunger a food refills       | Food-specific field                                                                   |
+| restorationAmount | int                | how much health a medicine restores  | Medicine-specific field                                                               |
+| joyAmount         | int                | how much happiness a toy gives a pet | Toy-specific field                                                                    |
 
 ### <a name="controllers"></a> Controllers
 
@@ -91,6 +147,8 @@ As a User, I want to earn coins, so that I may buy my pets food and new things.
 As a Guest, I want to make an account, so that I can take care of a pet of my own.
 
 As an Admin, I want to add new seasonal items, so that the site can have longevity.
+
+As an Admin, I want to be able to edit a user's username, so that I can enforce the Terms of Service
 
 As an Admin, I want to be able to delete users, so that I can protect visitors from unlawful or belligerent behavior.
 
