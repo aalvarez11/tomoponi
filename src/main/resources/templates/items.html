@@ -19,8 +19,8 @@
                 <h5 class="card-title" id="pet-name" th:text="${item.name}">Pet name</h5>
                 <p class="card-text" th:text="${item.description}"></p>
             </div>
-            <div class="card-footer" th:text="${UserItems[iterStat.index].qty}">
-                Card footer
+            <div class="card-footer" >
+                Amount owned: <span th:text="${UserItems[iterStat.index].qty}"></span>
             </div>
         </div>
     </div>
