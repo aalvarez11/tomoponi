@@ -73,8 +73,9 @@ public class UserService {
     }
 
     // delete a user from the database
-    public void deleteUser(User u) {
-        userRepository.delete(u);
+    @Transactional(rollbackOn = {NoSuchElementException.class})
+    public void deleteUser(int id) {
+        userRepository.deleteById(id);
     }
 
     // adding an item with 1 of said item
